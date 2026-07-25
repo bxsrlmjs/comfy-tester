@@ -798,7 +798,9 @@ document.querySelectorAll('.card-score').forEach(card => {{
 }});
 
 // Restore filter state from localStorage
-restoreFilterState();
+document.addEventListener('DOMContentLoaded', function() {{
+    restoreFilterState();
+}});
 
 function scoreCard(el, event) {{
     const star = event.target.closest('.star');
