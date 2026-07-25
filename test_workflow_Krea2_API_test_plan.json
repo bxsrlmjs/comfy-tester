@@ -1,0 +1,119 @@
+{
+  "$schema": "/home/bill/comfy-tester/test_plan.schema.json",
+  "workflow": "/home/bill/comfy-tester/test_workflow_Krea2_API.json",
+  "output_dir": "./test_outputs/Krea2-低显存版",
+  "seed": 999,
+  "host": "http://172.17.80.1:8188",
+  "timeout": 300,
+  "prompt": "",
+  "negative_prompt": "",
+  "parameters": {
+    "batch_size": {
+      "test": false,
+      "type": "int",
+      "default": 1,
+      "metric": "speed",
+      "reason": "fixed parameter (model name / prompt / filename)"
+    },
+    "cfg": {
+      "test": true,
+      "type": "int",
+      "default": 1,
+      "metric": "quality",
+      "values": [
+        3.5,
+        7.0
+      ]
+    },
+    "clip_name": {
+      "test": false,
+      "type": "string",
+      "default": "qwen3vl_4b_bf16.safetensors",
+      "metric": "both",
+      "reason": "fixed parameter (model name / prompt / filename)"
+    },
+    "denoise": {
+      "test": true,
+      "type": "float",
+      "default": 0.6,
+      "metric": "quality",
+      "values": [
+        0.4,
+        0.8
+      ]
+    },
+    "filename_prefix": {
+      "test": false,
+      "type": "string",
+      "default": "Krea2-20260725095422",
+      "metric": "both",
+      "reason": "fixed parameter (model name / prompt / filename)"
+    },
+    "height": {
+      "test": false,
+      "type": "int",
+      "default": 1280,
+      "metric": "speed",
+      "reason": "fixed parameter (model name / prompt / filename)"
+    },
+    "prompt": {
+      "test": false,
+      "type": "string",
+      "default": "马赛克, mosaic, censored, 模糊，低分辨率，低质量图像，扭曲的肢体，诡异的外观，丑陋，噪点，网格感，JPEG压缩条纹，异常的肢体，水印，乱码，意义不明的字符",
+      "metric": "both",
+      "reason": "fixed parameter (model name / prompt / filename)"
+    },
+    "sampler_name": {
+      "test": true,
+      "type": "string",
+      "default": "euler",
+      "metric": "quality",
+      "values": [
+        "euler",
+        "dpmpp_2m"
+      ]
+    },
+    "scheduler": {
+      "test": true,
+      "type": "string",
+      "default": "simple",
+      "metric": "quality",
+      "values": [
+        "normal",
+        "karras"
+      ]
+    },
+    "seed": {
+      "test": false,
+      "type": "int",
+      "default": 111608173311505,
+      "metric": "both",
+      "reason": "fixed parameter (model name / prompt / filename)"
+    },
+    "steps": {
+      "test": true,
+      "type": "int",
+      "default": 8,
+      "metric": "both",
+      "values": [
+        20,
+        40
+      ]
+    },
+    "vae_name": {
+      "test": false,
+      "type": "string",
+      "default": "qwen_image_vae.safetensors",
+      "metric": "both",
+      "reason": "fixed parameter (model name / prompt / filename)"
+    },
+    "width": {
+      "test": false,
+      "type": "int",
+      "default": 720,
+      "metric": "speed",
+      "reason": "fixed parameter (model name / prompt / filename)"
+    }
+  },
+  "total_runs": 32
+}

@@ -797,6 +797,9 @@ document.querySelectorAll('.card-score').forEach(card => {{
     }}
 }});
 
+// Restore filter state from localStorage
+restoreFilterState();
+
 function scoreCard(el, event) {{
     const star = event.target.closest('.star');
     if (!star) return;
@@ -823,6 +826,26 @@ function applyFilters() {{
         }});
         card.classList.toggle('hidden', !visible);
     }});
+    saveFilterState();
+}}
+
+function saveFilterState() {{
+    const state = {{}};
+    document.querySelectorAll('.filter-check').forEach(cb => {{
+        const key = cb.dataset.param + '=' + cb.dataset.value;
+        state[key] = cb.checked;
+    }});
+    localStorage.setItem('comfy_tester_filters_' + window.location.pathname, JSON.stringify(state));
+}}
+
+function restoreFilterState() {{
+    const state = JSON.parse(localStorage.getItem('comfy_tester_filters_' + window.location.pathname) || '{{}}');
+    if (Object.keys(state).length === 0) return;
+    document.querySelectorAll('.filter-check').forEach(cb => {{
+        const key = cb.dataset.param + '=' + cb.dataset.value;
+        if (key in state) cb.checked = state[key];
+    }});
+    applyFilters();
 }}
 
 function toggleGroup(param, state) {{
