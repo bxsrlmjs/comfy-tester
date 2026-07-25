@@ -1,0 +1,189 @@
+{
+  "137": {
+    "inputs": {
+      "samples": [
+        "158",
+        0
+      ],
+      "vae": [
+        "167",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE解码"
+    }
+  },
+  "140": {
+    "inputs": {
+      "conditioning": [
+        "164",
+        0
+      ]
+    },
+    "class_type": "ConditioningZeroOut",
+    "_meta": {
+      "title": "条件零化"
+    }
+  },
+  "156": {
+    "inputs": {
+      "width": 1192,
+      "height": 840,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "空Latent图像"
+    }
+  },
+  "158": {
+    "inputs": {
+      "seed": 111608173311505,
+      "steps": 8,
+      "cfg": 1,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 0.6,
+      "model": [
+        "350",
+        0
+      ],
+      "positive": [
+        "164",
+        0
+      ],
+      "negative": [
+        "140",
+        0
+      ],
+      "latent_image": [
+        "156",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "K采样器"
+    }
+  },
+  "164": {
+    "inputs": {
+      "text": [
+        "353",
+        0
+      ],
+      "clip": [
+        "348",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP文本编码"
+    }
+  },
+  "167": {
+    "inputs": {
+      "vae_name": "qwen_image_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "加载VAE"
+    }
+  },
+  "173": {
+    "inputs": {
+      "text": "马赛克, mosaic, censored, 模糊，低分辨率，低质量图像，扭曲的肢体，诡异的外观，丑陋，噪点，网格感，JPEG压缩条纹，异常的肢体，水印，乱码，意义不明的字符",
+      "clip": [
+        "348",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "负面条件"
+    }
+  },
+  "305": {
+    "inputs": {
+      "filename_prefix": "Krea2-20260725095422",
+      "images": [
+        "137",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "保存图像"
+    }
+  },
+  "348": {
+    "inputs": {
+      "clip_name": "qwen3vl_4b_bf16.safetensors",
+      "type": "krea2",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "加载CLIP"
+    }
+  },
+  "350": {
+    "inputs": {
+      "gguf_name": "krea2\\krea2_turbo-Q2_K.gguf"
+    },
+    "class_type": "LoaderGGUF",
+    "_meta": {
+      "title": "GGUF Loader"
+    }
+  },
+  "351": {
+    "inputs": {
+      "user_prompt": "清澈的小溪，一名男子身穿专业FLY FISHING装备，站在水中，操纵着专业的FLY ROD,一条虹鳟正在咬毛钩，背景蓝天白云，丁达尔光，风景优美",
+      "style": "洗图",
+      "style_image": "pasted/004.png",
+      "max_frames": 24,
+      "max_size": 768,
+      "seed": 854397987847692,
+      "force_offload": true,
+      "save_states": false,
+      "llama_model": [
+        "354",
+        0
+      ]
+    },
+    "class_type": "WenWuKrea2PromptInstruct",
+    "_meta": {
+      "title": "WenWu Krea2 Prompt Instruct"
+    }
+  },
+  "353": {
+    "inputs": {
+      "anything": [
+        "351",
+        0
+      ]
+    },
+    "class_type": "easy cleanGpuUsed",
+    "_meta": {
+      "title": "清理显存占用"
+    }
+  },
+  "354": {
+    "inputs": {
+      "model": "Qwythos-9B-Claude-Mythos-5-1M-Q4_K_M.gguf",
+      "mmproj": "mmproj-F16.gguf",
+      "chat_handler": "Qwen3.5",
+      "n_ctx": 8192,
+      "vram_limit": -1,
+      "image_min_tokens": 0,
+      "image_max_tokens": 0
+    },
+    "class_type": "llama_cpp_model_loader",
+    "_meta": {
+      "title": "Llama-cpp Model Loader"
+    }
+  }
+}

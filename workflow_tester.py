@@ -420,6 +420,12 @@ def cmd_run(args: argparse.Namespace) -> int:
                 downloaded = download_outputs(runner, outputs_raw, run_dir)
                 success_count += 1
                 log(f"{status_prefix} ... OK  {elapsed:.1f}s  ({len(downloaded)} files)")
+                # Free GPU memory after each run to prevent MemoryError
+                try:
+                    import urllib.request
+                    urllib.request.urlopen(f"http://{host.replace('http://', '')}/free", data=b"", timeout=10)
+                except Exception:
+                    pass  # silent — /free is best-effort
                 results.append({
                     "run_id": run_id,
                     "params": run_args,
