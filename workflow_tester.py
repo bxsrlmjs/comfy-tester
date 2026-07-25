@@ -400,7 +400,19 @@ def cmd_run(args: argparse.Namespace) -> int:
                 continue
 
             # Wait for completion
-            wait_result = runner.poll_status(pid, timeout=timeout)
+            t0_wait = time.time()
+            if args.ws:
+                def _ws_progress(evt: dict) -> None:
+                    t = evt.get("type")
+                    if t == "progress":
+                        log(f"  └─ step {evt.get('value')}/{evt.get('max')}")
+                    elif t == "executing":
+                        node = evt.get("node")
+                        if node:
+                            log(f"  └─ node {node}")
+                wait_result = runner.monitor_ws(pid, timeout=timeout, on_progress=_ws_progress)
+            else:
+                wait_result = runner.poll_status(pid, timeout=timeout)
             elapsed = time.time() - t0
 
             if wait_result["status"] == "success":
@@ -877,6 +889,7 @@ Examples:
     p_run.add_argument("--timeout", type=int, help="Timeout per run in seconds")
     p_run.add_argument("--output-dir", help="Output directory (overrides plan)")
     p_run.add_argument("--continue-on-error", action="store_true", help="Don't abort on failure")
+    p_run.add_argument("--ws", action="store_true", help="WebSocket real-time progress per run")
 
     # report
     p_report = sub.add_parser("report", help="Generate HTML + CSV reports")
