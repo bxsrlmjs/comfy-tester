@@ -648,7 +648,7 @@ def _generate_html(report: dict, output_dir: Path) -> str:
     for r in successes:
         params = r.get("params", {})
         data_attrs = " ".join(
-            f'data-{pname}="{v}"'.replace(".", "_").replace(" ", "_")
+            f'data-{pname.replace(".", "_").replace(" ", "_")}="{v}"'
             for pname, v in params.items()
             if pname in params_tested
         )
