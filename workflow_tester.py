@@ -759,6 +759,7 @@ body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
         {filter_html}
         <button onclick="resetFilters()" style="margin-top:10px;padding:6px 12px;background:#e94560;color:#fff;border:none;border-radius:4px;cursor:pointer;width:100%;">重置筛选</button>
         <button onclick="exportScores()" style="margin-top:6px;padding:6px 12px;background:#0f3460;color:#ccc;border:1px solid #555;border-radius:4px;cursor:pointer;width:100%;">📋 导出评分</button>
+        <button onclick="localStorage.clear();location.reload();" style="margin-top:6px;padding:6px 12px;background:#333;color:#999;border:1px solid #555;border-radius:4px;cursor:pointer;width:100%;">🗑 清除缓存</button>
     </div>
     <div class="main">
         <div class="stats">
@@ -798,7 +799,12 @@ document.querySelectorAll('.card-score').forEach(card => {{
 }});
 
 // Restore filter state from localStorage
-restoreFilterState();
+try {{
+    restoreFilterState();
+}} catch(e) {{
+    console.warn('Filter restore failed, showing all:', e);
+    resetFilters();
+}}
 
 function scoreCard(el, event) {{
     const star = event.target.closest('.star');
