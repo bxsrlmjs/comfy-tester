@@ -292,7 +292,7 @@ def cmd_run(args: argparse.Namespace) -> int:
     schema = extract_schema(workflow)
 
     # Override defaults from plan
-    host = args.host or plan.get("host", DEFAULT_LOCAL_HOST)
+    host = args.host or plan.get("host", "http://172.17.80.1:8188")
     seed = args.seed if args.seed is not None else plan.get("seed", 42)
     timeout = args.timeout or plan.get("timeout", 300)
     output_dir = Path(args.output_dir or plan.get("output_dir", "./test_outputs")).expanduser().resolve()
