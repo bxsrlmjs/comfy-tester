@@ -74,9 +74,11 @@ SMART_DEFAULTS: dict[str, list[Any]] = {
 # Parameters that should NOT be swept (keep fixed)
 NEVER_SWEEP = {
     "prompt", "negative_prompt", "prompt_l", "refiner_prompt",
+    "seed",  # fixed seed for reproducible comparisons
     "image", "mask_image", "ckpt_name", "vae_name", "clip_name",
     "unet_name", "diffusion_model_name", "controlnet_name",
     "lora_name", "upscale_model_name", "filename_prefix",
+    "width", "height", "batch_size",  # keep dimensions fixed
 }
 
 
