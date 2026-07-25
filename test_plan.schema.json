@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ComfyUI Test Plan",
+  "description": "Test plan for ComfyUI workflow parameter sweep testing",
+  "type": "object",
+  "required": ["workflow", "parameters"],
+  "properties": {
+    "workflow": {
+      "type": "string",
+      "description": "Path to the workflow API JSON file"
+    },
+    "output_dir": {
+      "type": "string",
+      "description": "Directory for test outputs",
+      "default": "./test_outputs"
+    },
+    "seed": {
+      "type": "integer",
+      "description": "Fixed seed for reproducible tests (use same seed across all runs to isolate parameter effects)",
+      "default": 42
+    },
+    "prompt": {
+      "type": "string",
+      "description": "Fixed prompt text for all runs (if workflow has a prompt parameter)",
+      "default": ""
+    },
+    "negative_prompt": {
+      "type": "string",
+      "description": "Fixed negative prompt for all runs",
+      "default": ""
+    },
+    "host": {
+      "type": "string",
+      "description": "ComfyUI server URL",
+      "default": "http://127.0.0.1:8188"
+    },
+    "timeout": {
+      "type": "integer",
+      "description": "Max seconds per run (0 = auto)",
+      "default": 300
+    },
+    "parameters": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["test"],
+        "properties": {
+          "test": {
+            "type": "boolean",
+            "description": "Include this parameter in the sweep?"
+          },
+          "values": {
+            "type": "array",
+            "description": "Values to test (cartesian product with other parameters)",
+            "minItems": 1
+          },
+          "metric": {
+            "type": "string",
+            "enum": ["quality", "speed", "both"],
+            "description": "What does this parameter primarily affect?"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["int", "float", "string", "bool"],
+            "description": "Parameter data type (auto-detected, informational)"
+          },
+          "default": {
+            "description": "Original default value from workflow"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Why this parameter is skipped (only when test=false)"
+          }
+        }
+      }
+    },
+    "total_runs": {
+      "type": "integer",
+      "description": "Calculated total number of test runs (auto-computed)",
+      "readOnly": true
+    }
+  }
+}

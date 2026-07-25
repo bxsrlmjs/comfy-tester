@@ -1,0 +1,19 @@
+# 全局忽略
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env
+*.egg-info/
+dist/
+build/
+.DS_Store
+Thumbs.db
+
+# 测试输出（本地生成的结果不上传）
+test_outputs/
+
+# IDE
+.vscode/settings.json
+.idea/
