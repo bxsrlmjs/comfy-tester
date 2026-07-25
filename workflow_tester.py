@@ -654,11 +654,12 @@ def _generate_html(report: dict, output_dir: Path) -> str:
         )
         outputs = r.get("outputs", [])
         img_tag = ""
+        img_filename = ""
         if outputs:
-            # Find the first image in outputs
             for o in outputs:
                 if o.lower().endswith((".png", ".jpg", ".jpeg", ".webp")):
                     img_tag = f'<img src="{o}" loading="lazy" onclick="this.classList.toggle(\'zoomed\')" />'
+                    img_filename = os.path.basename(o)
                     break
 
         param_labels = "  ".join(
@@ -670,6 +671,7 @@ def _generate_html(report: dict, output_dir: Path) -> str:
         <div class="card" {data_attrs}>
             <div class="card-img">{img_tag or '<div class="no-img">(无图片)</div>'}</div>
             <div class="card-info">
+                <div class="card-filename">{img_filename}</div>
                 <div class="card-params">{param_labels}</div>
                 <div class="card-time">⏱ {r.get("time_seconds", "?")}s</div>
                 <div class="card-score" onclick="scoreCard(this, event)" data-score="0">
@@ -724,6 +726,7 @@ body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
 .no-img {{ color: #555; font-size: 0.85em; }}
 .card-info {{ padding: 12px; }}
 .card-params {{ font-size: 0.78em; color: #aaa; margin-bottom: 6px; line-height: 1.5; }}
+.card-filename {{ font-size: 0.7em; color: #4fc3f7; margin-bottom: 2px; word-break: break-all; }}
 .card-time {{ font-size: 0.85em; color: #4ecca3; margin-bottom: 8px; }}
 .card-score {{ cursor: pointer; user-select: none; font-size: 1.2em; }}
 .card-score .star {{ color: #555; transition: color .15s; }}

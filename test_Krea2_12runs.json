@@ -1,0 +1,45 @@
+{
+  "workflow": "/home/bill/comfy-tester/test_workflow_Krea2_flyfish.json",
+  "parameters": {
+    "cfg": {
+      "test": true,
+      "values": [
+        1,
+        1.5
+      ]
+    },
+    "denoise": {
+      "test": true,
+      "values": [
+        0.5,
+        0.6,
+        0.7
+      ]
+    },
+    "steps": {
+      "test": true,
+      "values": [
+        5,
+        6
+      ]
+    },
+    "sampler_name": {
+      "test": true,
+      "values": [
+        "euler"
+      ]
+    },
+    "scheduler": {
+      "test": true,
+      "values": [
+        "normal"
+      ]
+    }
+  },
+  "fixed_parameters": {
+    "seed": 42,
+    "width": 1192,
+    "height": 840,
+    "batch_size": 1
+  }
+}
